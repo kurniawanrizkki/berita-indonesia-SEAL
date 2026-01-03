@@ -1,16 +1,26 @@
 import { Component } from '@angular/core';
-import { Data, Berita } from '../../../service/data';
-import { NgIf, AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { NewsService, NewsItem } from '../../../service/news/news'; // Sesuaikan path
+import { NgIf, AsyncPipe, NgFor, UpperCasePipe, DatePipe } from '@angular/common';
+import { Observable, map, startWith } from 'rxjs';
+
 @Component({
   selector: 'app-berita-terpopuler',
-  imports: [NgIf, AsyncPipe],
+  standalone: true,
+  imports: [NgIf, AsyncPipe, NgFor, UpperCasePipe, DatePipe],
   templateUrl: './berita-terpopuler.html',
   styleUrl: './berita-terpopuler.css',
 })
 export class BeritaTerpopuler {
-  topNews$!: Observable<Berita[]>;
-  constructor(private data: Data) {
-    this.topNews$ = this.data.getTopNews();
+  topNews$: Observable<NewsItem[] | null>;
+
+  constructor(private newsService: NewsService) {
+    this.topNews$ = this.newsService.allNews$.pipe(
+      startWith(null),
+      map((allNews) => {
+        if (!allNews) return null;
+        const filtered = allNews.filter((news) => news.category === 'nasional');
+        return filtered.length > 0 ? filtered.slice(0, 3) : null;
+      })
+    );
   }
 }

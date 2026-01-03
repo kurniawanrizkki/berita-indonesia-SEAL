@@ -16,7 +16,9 @@ export interface Berita {
 export class Data {
   constructor(private http: HttpClient) {}
   getHeadlineNews(): Observable<Berita[]> {
-    return this.http.get<any>('/api/antara-news/terkini').pipe(map((res) => res.data.slice(0, 5)));
+    return this.http
+      .get<any>('/api/cnn-news/internasional')
+      .pipe(map((res) => res.data.slice(0, 5)));
   }
 
   getTopNews(): Observable<Berita[]> {

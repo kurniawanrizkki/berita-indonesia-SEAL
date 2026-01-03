@@ -1,76 +1,61 @@
 <div class="ps-15 pe-15 pt-10">
-<div class="flex items-center gap-3">
-  <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
-  <h2 class="text-lg font-semibold text-gray-900">
-    Berita Terpopuler
-  </h2>
+  <div class="flex items-center gap-3">
+    <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
+    <h2 class="text-lg font-semibold text-gray-900">Rekomendasi</h2>
+  </div>
+
+  <ng-container *ngIf="(rekomendasi$ | async) as list; else skeleton">
+    <div class="flex flex-wrap justify-start gap-x-[2.6%] gap-y-6 p-4">
+
+      <div *ngFor="let item of list" class="w-full md:w-[48%] lg:w-[23%] transition-all hover:scale-[1.02]">
+        <img [src]="item.image.large" class="w-full h-44 object-cover rounded-xl" onerror="this.src='./assets/img/headline.png'" />
+        <div class="mt-2">
+          <p class="font-medium line-clamp-2 h-12">{{ item.title }}</p>
+          <div class="flex items-center gap-2 mt-3 text-sm">
+            <a class="text-[#0090FF] font-semibold capitalize">{{ item.category }}</a>
+            <img src="./assets/img/elipse.svg" />
+            <span class="text-gray-400">{{ item.isoDate | date:'dd MMM yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between items-center mt-10 mb-10  pt-6 gap-4">
+      <p class="text-gray-500 text-sm">
+        Showing {{ startRange }} to {{ endRange }} of {{ totalItems }} results
+      </p>
+
+      <div class="flex items-center gap-2">
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+                class="px-3 py-1 text-gray-500 disabled:opacity-30">
+          &larr; Previous
+        </button>
+
+        <button *ngFor="let p of [].constructor(totalPages); let i = index"
+                (click)="goToPage(i + 1)"
+                [class]="currentPage === (i + 1) ? 'bg-[#0090FF] text-white' : 'text-gray-600 hover:bg-gray-100'"
+                class="w-8 h-8 rounded-lg flex justify-center items-center font-medium transition-colors">
+          {{ i + 1 }}
+        </button>
+
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+                class="px-3 py-1 text-gray-500 disabled:opacity-30">
+          Next &rarr;
+        </button>
+      </div>
+    </div>
+  </ng-container>
 </div>
-<div class="flex flex-wrap justify-between gap-y-6 p-4">
 
-  <div class="w-full md:w-[48%] lg:w-[23%]">
-    <img src="./assets/img/headline.png" class="w-full rounded-xl" />
-    <div class="mt-2">
-      <p>Pj. Gubernur Adhy Tekankan Pelayanan Berkualitas saat Sharing Session di RSUD Dr. Soetomo</p>
-      <div class="flex items-center gap-2 mt-3 text-sm">
-        <a class="text-[#0090FF]">Politik</a>
-        <img src="./assets/img/elipse.svg" />
-        <span class="text-gray-400">22 Jan 2024</span>
+<ng-template #skeleton>
+  <div class="flex flex-wrap justify-start gap-x-[2.6%] gap-y-6 p-4 animate-pulse">
+    <div *ngFor="let i of [1,2,3,4,5,6,7,8]" class="w-full md:w-[48%] lg:w-[23%]">
+      <div class="w-full h-44 bg-gray-200 rounded-xl"></div>
+      <div class="mt-4 space-y-2">
+        <div class="h-4 bg-gray-200 rounded w-full"></div>
+        <div class="h-4 bg-gray-200 rounded w-2/3"></div>
       </div>
     </div>
   </div>
-
-  <div class="w-full md:w-[48%] lg:w-[23%]">
-    <img src="./assets/img/headline.png" class="w-full rounded-xl" />
-    <div class="mt-2">
-      <p>Pj. Gubernur Adhy Tekankan Pelayanan Berkualitas saat Sharing Session di RSUD Dr. Soetomo</p>
-      <div class="flex items-center gap-2 mt-3 text-sm">
-        <a class="text-[#0090FF]">Politik</a>
-        <img src="./assets/img/elipse.svg" />
-        <span class="text-gray-400">22 Jan 2024</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="w-full md:w-[48%] lg:w-[23%]">
-    <img src="./assets/img/headline.png" class="w-full rounded-xl" />
-    <div class="mt-2">
-      <p>Pj. Gubernur Adhy Tekankan Pelayanan Berkualitas saat Sharing Session di RSUD Dr. Soetomo</p>
-      <div class="flex items-center gap-2 mt-3 text-sm">
-        <a class="text-[#0090FF]">Politik</a>
-        <img src="./assets/img/elipse.svg" />
-        <span class="text-gray-400">22 Jan 2024</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="w-full md:w-[48%] lg:w-[23%]">
-    <img src="./assets/img/headline.png" class="w-full rounded-xl" />
-    <div class="mt-2">
-      <p>Pj. Gubernur Adhy Tekankan Pelayanan Berkualitas saat Sharing Session di RSUD Dr. Soetomo</p>
-      <div class="flex items-center gap-2 mt-3 text-sm">
-        <a class="text-[#0090FF]">Politik</a>
-        <img src="./assets/img/elipse.svg" />
-        <span class="text-gray-400">22 Jan 2024</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="w-full md:w-[48%] lg:w-[23%]">
-    <img src="./assets/img/headline.png" class="w-full rounded-xl" />
-    <div class="mt-2">
-      <p>Pj. Gubernur Adhy Tekankan Pelayanan Berkualitas saat Sharing Session di RSUD Dr. Soetomo</p>
-      <div class="flex items-center gap-2 mt-3 text-sm">
-        <a class="text-[#0090FF]">Politik</a>
-        <img src="./assets/img/elipse.svg" />
-        <span class="text-gray-400">22 Jan 2024</span>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="flex justify-center">
-  <p class="text-gray-500">Showing 1 to 10 of 97 results</p>
-  <div>
-
-  </div>
-</div>
-</div>
+</ng-template>

@@ -1,27 +1,44 @@
-import { Component } from '@angular/core';
-import { Data, Berita } from '../../../service/data';
-import { NgIf, AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { DatePipe, NgIf, AsyncPipe } from '@angular/common';
+import { NewsService, NewsItem } from '../../../service/news/news';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
-  standalone: true,
-  imports: [NgIf, AsyncPipe],
   templateUrl: './hero.html',
+  imports: [DatePipe, AsyncPipe, NgIf],
+  standalone: true,
 })
-export class Hero {
-  headlines$!: Observable<Berita[]>;
-  currentIndex = 0;
+export class Hero implements OnInit {
+  // Menggunakan observable agar sinkron dengan BehaviorSubject di service
+  headlines$: Observable<NewsItem[] | null>;
+  currentIndex: number = 0;
 
-  constructor(private data: Data) {
-    this.headlines$ = this.data.getHeadlineNews();
+  constructor(private newsService: NewsService) {
+    this.headlines$ = this.newsService.allNews$.pipe(
+      map((allNews) => {
+        if (!allNews) return null;
+
+        return allNews.filter((news) => news.category === 'internasional').slice(0, 5);
+      })
+    );
   }
 
-  next(total: number) {
-    this.currentIndex = (this.currentIndex + 1) % total;
+  ngOnInit(): void {}
+
+  next(limit: number) {
+    if (this.currentIndex < limit - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0; // Kembali ke awal
+    }
   }
 
-  prev(total: number) {
-    this.currentIndex = (this.currentIndex - 1 + total) % total;
+  prev(limit: number) {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = limit - 1; // Ke data terakhir
+    }
   }
 }

@@ -1,62 +1,68 @@
-<footer
-  class="bg-[#2C3C4D] ps-15 pe-15 pt-15 pb-25">
-  <div class="flex justify-between">
-    <div>
-      <div class="flex gap-5">
-        <img src="./assets/img/logo-light.svg" class="w-15" />
-        <span class="text-[20px] self-center font-semibold text-white">Berita Kini</span>
+<footer class="bg-[#2C3C4D] px-4 sm:px-8 md:px-12 lg:px-15 pt-8 md:pt-12 lg:pt-15 pb-10 md:pb-20 lg:pb-25">
+  <div class="flex flex-col lg:flex-row justify-between gap-8 lg:gap-10">
+    <!-- Logo & Social Media Section -->
+    <div class="flex-shrink-0">
+      <div class="flex gap-3 sm:gap-5">
+        <img src="./assets/img/logo-light.svg" class="w-12 sm:w-15" />
+        <span class="text-lg sm:text-[20px] self-center font-semibold text-white">Berita Kini</span>
       </div>
-      <p class="text-gray-400 mt-2">© 2026 Berita Kini. All Rights Reserved.</p>
-      <div class="mt-15">
-        <span class="text-white font-semibold">Ikuti Kami</span>
-        <div class="flex gap-5 mt-3">
-          <img src="./assets/img/yt.svg" />
-          <img src="./assets/img/ig.svg" />
-          <img src="./assets/img/fb.svg" />
+      <p class="text-gray-400 mt-2 text-sm sm:text-base">© 2026 Berita Kini. All Rights Reserved.</p>
+      <div class="mt-6 sm:mt-10 lg:mt-15">
+        <span class="text-white font-semibold text-sm sm:text-base">Ikuti Kami</span>
+        <div class="flex gap-4 sm:gap-5 mt-3">
+          <img src="./assets/img/yt.svg" class="w-6 h-6 sm:w-auto sm:h-auto" />
+          <img src="./assets/img/ig.svg" class="w-6 h-6 sm:w-auto sm:h-auto" />
+          <img src="./assets/img/fb.svg" class="w-6 h-6 sm:w-auto sm:h-auto" />
         </div>
       </div>
     </div>
-    <div class="text-white">
-      <span class="text-lg">Telusuri</span>
-      <ul class="grid gap-2 mt-1">
-        <li><a routerLink="#">Kesehatan</a></li>
-        <li><a routerLink="#">Politik</a></li>
-        <li><a routerLink="#">Teknologi</a></li>
-        <li><a routerLink="#">Otomotif</a></li>
-        <li><a routerLink="#">Nasional</a></li>
-        <li><a routerLink="#">Internasional</a></li>
-      </ul>
-    </div>
-    <div class="text-white">
-      <span class="text-lg">Bantuan</span>
-      <ul class="grid gap-2 mt-1">
-        <li><a routerLink="#">Kontak Kami</a></li>
-        <li><a routerLink="#">Laporan Pembajakan</a></li>
-        <li><a routerLink="#">Kebijakan</a></li>
-      </ul>
-    </div>
-    <div class="text-white">
-      <span class="text-lg">Berlangganan Berita Terbaru</span>
-      <div class="mt-3">
-  <div class="max-w-xl mx-auto">
-    <div class="flex items-center bg-white rounded-xl shadow-md overflow-hidden">
 
-      <input
-        type="email"
-        placeholder="Masukan email"
-        class="flex-1 px-5 py-4 text-gray-700 placeholder-gray-400 focus:outline-none"
-      />
-
-      <button
-        class="bg-blue-500 hover:bg-blue-600 transition-colors px-3 py-3 rounded-xl me-1 flex items-center justify-center"
-      >
-      <img src="./assets/img/bi_send-fill.svg" />
-      </button>
-
-    </div>
-  </div>
-</div>
-
+    <!-- Navigation Links - Grid on Mobile -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-8 flex-1 lg:flex lg:justify-end lg:gap-12 xl:gap-20">
+      <!-- Telusuri Section -->
+      <div class="text-white">
+        <span class="text-base sm:text-lg font-semibold block mb-3">Telusuri</span>
+        <ul class="grid gap-2 text-sm sm:text-base">
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Kesehatan</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Politik</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Teknologi</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Otomotif</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Nasional</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Internasional</a></li>
+        </ul>
       </div>
+
+      <!-- Bantuan Section -->
+      <div class="text-white">
+        <span class="text-base sm:text-lg font-semibold block mb-3">Bantuan</span>
+        <ul class="grid gap-2 text-sm sm:text-base">
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Kontak Kami</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Laporan Pembajakan</a></li>
+          <li><a routerLink="#" class="hover:text-blue-400 transition-colors">Kebijakan</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Section -->
+      <div class="text-white col-span-2 md:col-span-1">
+        <span class="text-base sm:text-lg font-semibold block mb-3">Berlangganan Berita Terbaru</span>
+        <div class="mt-3">
+          <div class="w-full">
+            <div class="flex items-center bg-white rounded-xl shadow-md overflow-hidden">
+              <input
+                type="email"
+                placeholder="Masukan email"
+                class="flex-1 px-3 sm:px-5 py-3 sm:py-4 text-sm sm:text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+              />
+              <button
+                class="bg-blue-500 hover:bg-blue-600 transition-colors px-3 py-3 rounded-xl me-1 flex items-center justify-center flex-shrink-0"
+                aria-label="Kirim"
+              >
+                <img src="./assets/img/bi_send-fill.svg" class="w-5 h-5 sm:w-6 sm:h-6" alt="Send" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>

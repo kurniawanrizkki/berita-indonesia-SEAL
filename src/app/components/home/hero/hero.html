@@ -1,85 +1,74 @@
 <div
-  class="mt-[150px] ps-15 pe-15"
-  *ngIf="headlines$ | async as headlines; else skeleton"
+  class="mt-[150px] px-4 sm:px-6 md:px-8 lg:px-15"
+  *ngIf="(headlines$ | async) as headlines; else skeleton"
 >
-  <span class="text-gray-600 font-semibold">Headline</span>
-
-  <div class="flex justify-between items-center mt-4">
-    <div>
-      <p class="font-bold text-[36px] w-[505px] leading-tight">
-        {{ headlines[currentIndex].title }}
-      </p>
-
-      <p class="text-gray-500 font-semibold w-[505px] mt-4">
-        {{ headlines[currentIndex].description }}
-      </p>
-
-      <div class="flex gap-2 mt-3 items-center">
-        <img src="./assets/img/kalendar.svg" />
-        <p class="text-gray-500 font-semibold">
-          {{ headlines[currentIndex].isoDate }}
+  <ng-container *ngIf="headlines.length > 0">
+    <span class="text-gray-600 font-semibold text-sm md:text-base">Headline</span>
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-4 gap-6 lg:gap-8">
+      <div class="w-full lg:w-auto">
+        <p class="font-bold text-2xl sm:text-3xl md:text-[36px] max-w-full lg:w-[505px] leading-tight">
+          {{ headlines[currentIndex].title }}
         </p>
-      </div>
-
-      <div class="flex gap-1 mt-6 items-center">
+        <p class="text-gray-500 font-semibold max-w-full lg:w-[505px] mt-4 line-clamp-3 text-sm md:text-base">
+          {{ headlines[currentIndex].contentSnippet }}
+        </p>
+        <div class="flex gap-2 mt-3 items-center">
+          <img src="./assets/img/kalendar.svg" class="w-4 h-4" />
+          <p class="text-gray-500 font-semibold text-sm md:text-base">
+            {{ headlines[currentIndex].isoDate | date:'dd MMMM yyyy' }}
+          </p>
+        </div>
+        <div class="flex gap-1 mt-6 items-center">
         <a
-          class="text-[#0090FF] font-semibold"
-          [href]="headlines[currentIndex].link"
-          target="_blank"
-        >
-          Baca Selengkapnya
-        </a>
-        <img src="./assets/img/arrow.svg" />
+            class="text-[#0090FF] font-semibold text-sm md:text-base"
+            [href]="headlines[currentIndex].link"
+            target="_blank"
+          >
+            Baca Selengkapnya
+          </a>
+          <img src="./assets/img/arrow.svg" class="w-4 h-4" />
+        </div>
+      </div>
+      <div class="w-full lg:w-auto">
+        <img
+          class="rounded-md w-full lg:w-[480px] h-[200px] sm:h-[250px] md:h-[300px] object-cover"
+          [src]="headlines[currentIndex].image.large"
+          onerror="this.src='./assets/img/headline.png'"
+        />
       </div>
     </div>
-
-    <div>
-      <img
-        class="rounded-md w-[480px] h-[300px] object-cover"
-        [src]="headlines[currentIndex].image || './assets/img/headline.png'"
-      />
+    <div class="flex justify-center mt-8 lg:mt-10">
+      <div class="flex items-center gap-4 sm:gap-7">
+        <button (click)="prev(headlines.length)" class="focus:outline-none">
+          <img src="./assets/img/arrow-left.svg" class="w-6 h-6 sm:w-8 sm:h-8" />
+        </button>
+        <div class="flex gap-1 text-sm md:text-base">
+          <span class="font-semibold">{{ currentIndex + 1 }}</span>
+          <span>dari</span>
+          <span class="font-semibold">{{ headlines.length }}</span>
+        </div>
+        <button class="pointer focus:outline-none" (click)="next(headlines.length)">
+          <img src="./assets/img/arrow-right.svg" class="w-6 h-6 sm:w-8 sm:h-8" />
+        </button>
+      </div>
     </div>
-  </div>
-
-  <div class="flex justify-center mt-10">
-    <div class="flex items-center gap-7">
-      <button (click)="prev(headlines.length)">
-        <img src="./assets/img/arrow-left.svg" />
-      </button>
-
-      <span class="font-semibold">{{ currentIndex + 1 }}</span>
-      <span>dari</span>
-      <span class="font-semibold">{{ headlines.length }}</span>
-
-      <button class="pointer" (click)="next(headlines.length)">
-        <img src="./assets/img/arrow-right.svg" />
-      </button>
-    </div>
-  </div>
+  </ng-container>
 </div>
 
 <ng-template #skeleton>
-  <div class="mt-[150px] ps-15 pe-15 animate-pulse">
+  <div class="mt-[150px] px-4 sm:px-6 md:px-8 lg:px-15 animate-pulse">
     <div class="h-4 w-24 bg-gray-300 rounded mb-6"></div>
-
-    <div class="flex justify-between items-center">
-      <div>
-        <div class="h-10 w-[505px] bg-gray-300 rounded mb-4"></div>
-        <div class="h-4 w-[505px] bg-gray-300 rounded mb-2"></div>
-        <div class="h-4 w-[420px] bg-gray-300 rounded mb-6"></div>
-
+    <div class="flex flex-col lg:flex-row justify-between items-start gap-6 lg:gap-8">
+      <div class="w-full lg:w-auto">
+        <div class="h-8 md:h-10 w-full lg:w-[505px] bg-gray-300 rounded mb-4"></div>
+        <div class="h-4 w-full lg:w-[505px] bg-gray-300 rounded mb-2"></div>
+        <div class="h-4 w-full sm:w-[420px] bg-gray-300 rounded mb-6"></div>
         <div class="flex gap-3 items-center mt-4">
           <div class="h-4 w-4 bg-gray-300 rounded-full"></div>
           <div class="h-4 w-32 bg-gray-300 rounded"></div>
         </div>
-
-        <div class="flex gap-2 mt-6">
-          <div class="h-4 w-32 bg-gray-300 rounded"></div>
-        </div>
       </div>
-
-      <div class="w-[480px] h-[300px] bg-gray-300 rounded-md"></div>
+      <div class="w-full lg:w-[480px] h-[200px] sm:h-[250px] md:h-[300px] bg-gray-300 rounded-md"></div>
     </div>
   </div>
 </ng-template>
-

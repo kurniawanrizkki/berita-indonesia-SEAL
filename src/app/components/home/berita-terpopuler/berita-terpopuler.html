@@ -1,32 +1,57 @@
 <div class="px-4 sm:px-6 lg:px-15 pt-10">
   <div class="flex items-center gap-3 mb-6">
-      <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
-      <h2 class="text-lg font-semibold text-gray-900">
-        Berita Terpopuler
-      </h2>
-    </div>
+    <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
+    <h2 class="text-lg font-semibold text-gray-900">Berita Terpopuler</h2>
+  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4">
-      <div *ngIf="topNews$ | async as topNews" class="news-item relative p-4 bg-white rounded-lg lg:bg-transparent lg:rounded-none">
+  <ng-container *ngIf="(topNews$ | async) as newsList; else skeleton">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4" *ngIf="newsList.length > 0; else skeleton">
+
+      <div *ngFor="let item of newsList; let i = index" class="news-item relative p-4 bg-white rounded-lg lg:bg-transparent lg:rounded-none">
         <div class="flex gap-3 relative">
-          <div class="text-white bg-[#1F2B39] absolute top-[-10px] left-[-10px] rounded-full w-8 h-8 flex justify-center items-center text-sm">
-          1
+          <div class="text-white bg-[#1F2B39] absolute top-[-10px] left-[-10px] rounded-full w-8 h-8 flex justify-center items-center text-sm z-10">
+            {{ i + 1 }}
           </div>
-          <img src="./assets/img/headline.png"
-               alt="News thumbnail"
-               class="rounded-md w-24 h-24 sm:w-28 sm:h-28 lg:w-30 lg:h-30 object-cover flex-shrink-0" />
+
+          <img [src]="item.image.small"
+               [alt]="item.title"
+               class="rounded-md w-24 h-24 sm:w-28 sm:h-28 lg:w-30 lg:h-30 object-cover flex-shrink-0"
+               onerror="this.src='./assets/img/headline.png'"/>
+
           <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-900 line-clamp-3 mb-3">
-            {{ topNews.title }}
+            <p class="text-sm text-gray-900 font-bold line-clamp-3 mb-3">
+              {{ item.title }}
             </p>
             <div class="flex items-center gap-2 flex-wrap">
-              <a href="#" class="text-[#0090FF] text-xs sm:text-sm hover:underline">Politik</a>
+              <a [href]="item.link" target="_blank" class="text-[#0090FF] text-xs sm:text-sm hover:underline">
+                {{ item.category }}
+              </a>
               <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
-              <span class="text-gray-400 text-xs sm:text-sm">22 Jan 2024</span>
+              <span class="text-gray-400 text-xs sm:text-sm">
+                {{ item.isoDate | date:'dd MMM yyyy' }}
+              </span>
             </div>
           </div>
-      <div class="w-0.5 h-30 bg-gray-300 rounded"></div>
+
+          <div class="hidden lg:block w-0.5 h-24 bg-gray-200 ml-2"></div>
         </div>
       </div>
 
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #skeleton>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4 animate-pulse">
+    <div *ngFor="let i of [1,2,3,4,5,6]" class="p-4">
+      <div class="flex gap-3">
+        <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gray-200 rounded-md"></div>
+        <div class="flex-1 space-y-3">
+          <div class="h-4 bg-gray-200 rounded w-full"></div>
+          <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+          <div class="h-3 bg-gray-200 rounded w-1/2 mt-4"></div>
+        </div>
+      </div>
+    </div>
   </div>
+</ng-template>
