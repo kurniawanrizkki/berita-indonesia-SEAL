@@ -1,0 +1,253 @@
+@if(isScrolling == true && router.url == "/") {
+<nav class="flex justify-between items-center px-4 sm:px-8 lg:px-15 py-4 lg:py-5 bg-[#0090FF] fixed top-0 left-0 right-0 z-50">
+  <div class="flex items-center gap-2">
+    <img src="./assets/img/logo-light.svg" class="w-8 sm:w-10" alt="logo" />
+    <span class="text-base sm:text-lg lg:text-[20px] text-white font-semibold">Berita Kini</span>
+  </div>
+
+  <!-- Desktop Menu -->
+  <div class="hidden lg:flex">
+    <ul class="flex gap-3 items-center">
+      <li>
+        <a
+          routerLinkActive="!text-white"
+          class="text-gray-200 hover:text-white transition-colors"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/"
+        >
+          Beranda
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-white"
+          class="text-gray-200 hover:text-white transition-colors"
+          routerLink="/terbaru"
+        >
+          Terbaru
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-white"
+          class="text-gray-200 hover:text-white transition-colors"
+          routerLink="/hiburan"
+        >
+          Hiburan
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-white"
+          class="text-gray-200 hover:text-white transition-colors"
+          routerLink="/gaya-hidup"
+        >
+          Gaya Hidup
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-white"
+          class="text-gray-200 hover:text-white transition-colors"
+          routerLink="/olahraga"
+        >
+          Olahraga
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Mobile Menu Button -->
+  <button (click)="toggleMobileMenu()" class="lg:hidden text-white p-2">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path *ngIf="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <path *ngIf="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <!-- Mobile Menu Dropdown -->
+  @if(isMobileMenuOpen) {
+    <div class="lg:hidden absolute top-full left-0 right-0 bg-[#0090FF] shadow-lg">
+      <ul class="flex flex-col py-4">
+        <li>
+          <a
+            routerLinkActive="!text-white !bg-blue-600"
+            class="text-gray-200 hover:text-white hover:bg-blue-600 transition-colors block px-4 sm:px-8 py-3"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/"
+            (click)="closeMobileMenu()"
+          >
+            Beranda
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-white !bg-blue-600"
+            class="text-gray-200 hover:text-white hover:bg-blue-600 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/terbaru"
+            (click)="closeMobileMenu()"
+          >
+            Terbaru
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-white !bg-blue-600"
+            class="text-gray-200 hover:text-white hover:bg-blue-600 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/hiburan"
+            (click)="closeMobileMenu()"
+          >
+            Hiburan
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-white !bg-blue-600"
+            class="text-gray-200 hover:text-white hover:bg-blue-600 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/gaya-hidup"
+            (click)="closeMobileMenu()"
+          >
+            Gaya Hidup
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-white !bg-blue-600"
+            class="text-gray-200 hover:text-white hover:bg-blue-600 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/olahraga"
+            (click)="closeMobileMenu()"
+          >
+            Olahraga
+          </a>
+        </li>
+      </ul>
+    </div>
+  }
+</nav>
+}@else {
+<nav class="flex justify-between items-center px-4 sm:px-8 lg:px-15 py-4 lg:py-5 bg-white fixed top-0 left-0 right-0 z-50 shadow-sm">
+  <div class="flex items-center gap-2">
+    <img src="./assets/img/logo.svg" class="w-8 sm:w-10" alt="logo" />
+    <span class="text-base sm:text-lg lg:text-[20px] font-semibold">Berita Kini</span>
+  </div>
+
+  <!-- Desktop Menu -->
+  <div class="hidden lg:flex">
+    <ul class="flex gap-3 items-center">
+      <li>
+        <a
+          routerLinkActive="!text-[#0090FF]"
+          class="text-gray-400 hover:text-[#0090FF] transition-colors"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/"
+        >
+          Beranda
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-[#0090FF]"
+          class="text-gray-400 hover:text-[#0090FF] transition-colors"
+          routerLink="/terbaru"
+        >
+          Terbaru
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-[#0090FF]"
+          class="text-gray-400 hover:text-[#0090FF] transition-colors"
+          routerLink="/hiburan"
+        >
+          Hiburan
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-[#0090FF]"
+          class="text-gray-400 hover:text-[#0090FF] transition-colors"
+          routerLink="/gaya-hidup"
+        >
+          Gaya Hidup
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="!text-[#0090FF]"
+          class="text-gray-400 hover:text-[#0090FF] transition-colors"
+          routerLink="/olahraga"
+        >
+          Olahraga
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Mobile Menu Button -->
+  <button (click)="toggleMobileMenu()" class="lg:hidden text-gray-600 p-2">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path *ngIf="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <path *ngIf="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <!-- Mobile Menu Dropdown -->
+  @if(isMobileMenuOpen) {
+    <div class="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t">
+      <ul class="flex flex-col py-4">
+        <li>
+          <a
+            routerLinkActive="!text-[#0090FF] !bg-blue-50"
+            class="text-gray-400 hover:text-[#0090FF] hover:bg-blue-50 transition-colors block px-4 sm:px-8 py-3"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/"
+            (click)="closeMobileMenu()"
+          >
+            Beranda
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-[#0090FF] !bg-blue-50"
+            class="text-gray-400 hover:text-[#0090FF] hover:bg-blue-50 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/terbaru"
+            (click)="closeMobileMenu()"
+          >
+            Terbaru
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-[#0090FF] !bg-blue-50"
+            class="text-gray-400 hover:text-[#0090FF] hover:bg-blue-50 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/hiburan"
+            (click)="closeMobileMenu()"
+          >
+            Hiburan
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-[#0090FF] !bg-blue-50"
+            class="text-gray-400 hover:text-[#0090FF] hover:bg-blue-50 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/gaya-hidup"
+            (click)="closeMobileMenu()"
+          >
+            Gaya Hidup
+          </a>
+        </li>
+        <li>
+          <a
+            routerLinkActive="!text-[#0090FF] !bg-blue-50"
+            class="text-gray-400 hover:text-[#0090FF] hover:bg-blue-50 transition-colors block px-4 sm:px-8 py-3"
+            routerLink="/olahraga"
+            (click)="closeMobileMenu()"
+          >
+            Olahraga
+          </a>
+        </li>
+      </ul>
+    </div>
+  }
+</nav>
+}
