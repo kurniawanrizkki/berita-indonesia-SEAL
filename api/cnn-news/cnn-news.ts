@@ -1,3 +1,4 @@
+// api/cnn-news.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -12,6 +13,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // ✅ HAPUS SPASI BERLEBIH DI SINI!
     const response = await fetch(
       `https://berita-indo-api-next.vercel.app/api/cnn-news/${category}`,
       {
@@ -32,7 +34,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const data = await response.json();
 
-    // 🚨 VALIDASI AGAR SELALU SESUAI DENGAN ApiResponse
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json({
       message: data.message ?? 'success',
@@ -41,7 +42,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (error) {
     console.error('Proxy API error:', error);
-
     res.status(500).json({
       message: 'Proxy API error',
       data: [],
