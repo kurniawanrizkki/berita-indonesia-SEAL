@@ -27,7 +27,7 @@ export interface ApiResponse {
   providedIn: 'root',
 })
 export class NewsService {
-  private baseUrl = 'https://berita-indo-api-next.vercel.app/api/cnn-news';
+  private baseUrl = 'api/cnn-news';
 
   private categories = [
     'nasional',
