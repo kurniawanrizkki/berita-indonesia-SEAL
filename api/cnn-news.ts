@@ -1,7 +1,7 @@
 // api/cnn-news.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req: VercelReq, res: VercelRes) {
   const { category } = req.query;
 
   if (!category || typeof category !== 'string') {
@@ -13,7 +13,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // ✅ HAPUS SPASI BERLEBIH DI SINI!
     const response = await fetch(
       `https://berita-indo-api-next.vercel.app/api/cnn-news/${category}`,
       {
@@ -49,3 +48,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 }
+
+// ✅ EKSPOR DENGAN COMMONJS
+export = handler;

@@ -53,7 +53,7 @@ export class NewsService {
     this.loadingSubject.next(true);
 
     const requests = this.categories.map((cat) =>
-      this.http.get<ApiResponse>(`${this.baseUrl}/${cat}`).pipe(
+      this.http.get<ApiResponse>(`${this.baseUrl}?category=${cat}`).pipe(
         map((response) =>
           response.data.map((item: NewsItem) => ({
             ...item,
