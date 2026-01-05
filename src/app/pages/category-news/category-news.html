@@ -1,0 +1,112 @@
+<div class="px-4 sm:px-6 md:px-10 lg:px-15 pt-10">
+<div class="mt-28 flex flex-wrap items-center gap-2 text-gray-500 text-xs mb-6">
+    <a routerLink="/" class="hover:underline">Beranda</a>
+    <img src="./assets/img/arrow-right.svg" class="w-1" />
+    <a [routerLink]='["/",kategori]' class="hover:underline capitalize">
+      {{ kategori }}
+    </a>
+  </div>
+
+
+  <!-- HEADER -->
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
+    <h2 class="text-lg font-semibold text-gray-900 capitalize">
+      {{ kategori }}
+    </h2>
+  </div>
+
+  <!-- CONTENT -->
+  <ng-container *ngIf="(rekomendasi$ | async) as list; else skeleton">
+    <!-- GRID -->
+    <div class="flex flex-wrap gap-x-[2.6%] gap-y-6">
+      <div
+        *ngFor="let item of list"
+        class="relative w-full sm:w-[48%] lg:w-[23%]
+               transition-transform hover:scale-[1.02]"
+      >
+        <a class="absolute w-full h-full z-500" [routerLink]="[item.slug]">
+        </a>
+        <img
+          [src]="item.image?.large"
+          class="w-full h-44 object-cover rounded-xl"
+          onerror="this.src='./assets/img/headline.png'"
+        />
+
+        <div class="mt-2">
+          <p class="font-medium line-clamp-2 h-12">
+            {{ item.title }}
+          </p>
+
+          <div class="flex items-center gap-2 mt-3 text-sm">
+            <span class="text-[#0090FF] font-semibold capitalize">
+              {{ item.category }}
+            </span>
+            <img src="./assets/img/elipse.svg" />
+            <span class="text-gray-400">
+              {{ item.isoDate | date: 'dd MMM yyyy' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGINATION -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-center
+             mt-10 mb-10 pt-6 gap-4"
+    >
+      <p class="text-gray-500 text-sm">
+        Showing {{ startRange }} to {{ endRange }} of {{ totalItems }} results
+      </p>
+
+      <div class="flex items-center gap-2">
+        <button
+          (click)="goToPage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          class="px-3 py-1 text-gray-500 disabled:opacity-30"
+        >
+          ← Previous
+        </button>
+
+        <button
+          *ngFor="let p of [].constructor(totalPages); let i = index"
+          (click)="goToPage(i + 1)"
+          class="w-8 h-8 rounded-lg flex justify-center items-center
+                 font-medium transition-colors"
+          [ngClass]="{
+            'bg-[#0090FF] text-white': currentPage === i + 1,
+            'text-gray-600 hover:bg-gray-100': currentPage !== i + 1
+          }"
+        >
+          {{ i + 1 }}
+        </button>
+
+        <button
+          (click)="goToPage(currentPage + 1)"
+          [disabled]="currentPage === totalPages"
+          class="px-3 py-1 text-gray-500 disabled:opacity-30"
+        >
+          Next →
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<!-- SKELETON -->
+<ng-template #skeleton>
+  <div class="flex flex-wrap gap-x-[2.6%] gap-y-6 animate-pulse">
+    <div
+      *ngFor="let i of [1,2,3,4,5,6,7,8]"
+      class="w-full sm:w-[48%] lg:w-[23%]"
+    >
+      <div class="w-full h-44 bg-gray-200 rounded-xl"></div>
+      <div class="mt-4 space-y-2">
+        <div class="h-4 bg-gray-200 rounded w-full"></div>
+        <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

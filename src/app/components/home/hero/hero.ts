@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe, NgIf, AsyncPipe } from '@angular/common';
 import { NewsService, NewsItem } from '../../../service/news/news';
 import { Observable, map } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.html',
-  imports: [DatePipe, AsyncPipe, NgIf],
+  imports: [DatePipe, AsyncPipe, NgIf, RouterLink],
   standalone: true,
 })
 export class Hero implements OnInit {

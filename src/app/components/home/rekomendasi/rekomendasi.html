@@ -8,6 +8,9 @@
     <div class="flex flex-wrap justify-start gap-x-[2.6%] gap-y-6 p-4">
 
       <div *ngFor="let item of list" class="w-full md:w-[48%] lg:w-[23%] transition-all hover:scale-[1.02]">
+     <a class="absolute w-full h-44 z-500 " [routerLink]="[item.category,item.slug]">
+        </a>
+
         <img [src]="item.image.large" class="w-full h-44 object-cover rounded-xl" onerror="this.src='./assets/img/headline.png'" />
         <div class="mt-2">
           <p class="font-medium line-clamp-2 h-12">{{ item.title }}</p>

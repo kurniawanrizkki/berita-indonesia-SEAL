@@ -21,7 +21,7 @@
         <div class="flex gap-1 mt-6 items-center">
         <a
             class="text-[#0090FF] font-semibold text-sm md:text-base"
-            [href]="headlines[currentIndex].link"
+            [routerLink]="[headlines[currentIndex].category ,headlines[currentIndex].slug]"
             target="_blank"
           >
             Baca Selengkapnya

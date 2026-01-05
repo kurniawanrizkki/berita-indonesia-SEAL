@@ -8,6 +8,9 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4" *ngIf="newsList.length > 0; else skeleton">
 
       <div *ngFor="let item of newsList; let i = index" class="news-item relative p-4 bg-white rounded-lg lg:bg-transparent lg:rounded-none">
+        <a class="absolute w-full h-full z-500" [routerLink]="[item.category,item.slug]">
+        </a>
+
         <div class="flex gap-3 relative">
           <div class="text-white bg-[#1F2B39] absolute top-[-10px] left-[-10px] rounded-full w-8 h-8 flex justify-center items-center text-sm z-10">
             {{ i + 1 }}
@@ -23,7 +26,7 @@
               {{ item.title }}
             </p>
             <div class="flex items-center gap-2 flex-wrap">
-              <a [href]="item.link" target="_blank" class="text-[#0090FF] text-xs sm:text-sm hover:underline">
+              <a [href]="item.link" target="_blank" class="text-[#0090FF] text-xs sm:text-sm hover:underline capitalize">
                 {{ item.category }}
               </a>
               <span class="w-1 h-1 bg-gray-400 rounded-full"></span>

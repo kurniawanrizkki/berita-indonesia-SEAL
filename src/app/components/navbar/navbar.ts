@@ -10,18 +10,27 @@ import { CommonModule } from '@angular/common';
 })
 export class Navbar {
   constructor(public router: Router) {}
+
   isScrolling = false;
   isMobileMenuOpen = false;
+
+  categories = [
+    'terbaru',
+    'nasional',
+    'internasional',
+    'ekonomi',
+    'olahraga',
+    'teknologi',
+    'hiburan',
+    'gaya-hidup',
+  ];
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollTop =
       window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop > 0) {
-      this.isScrolling = true;
-    } else {
-      this.isScrolling = false;
-    }
+
+    this.isScrolling = scrollTop > 0;
   }
 
   toggleMobileMenu() {
@@ -30,5 +39,9 @@ export class Navbar {
 
   closeMobileMenu() {
     this.isMobileMenuOpen = false;
+  }
+
+  formatTitle(text: string) {
+    return text.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   }
 }

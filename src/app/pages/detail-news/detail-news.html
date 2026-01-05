@@ -1,0 +1,281 @@
+<div class="mt-[120px] px-4 sm:px-6 md:px-8 lg:px-15 mb-30"> <!-- BREADCRUMB -->
+  <div *ngIf="detailNews$ | async as news" class="flex flex-wrap items-center gap-2 text-gray-500 text-xs mb-6">
+    <a routerLink="" class="hover:underline">Beranda</a>
+    <img src="./assets/img/arrow-right.svg" class="w-1" />
+    <a [routerLink]="['/',news.category]" class="hover:underline capitalize">
+      {{ news.category }}
+    </a>
+    <img src="./assets/img/arrow-right.svg" class="w-1" />
+    <a class="hover:underline">Detail</a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="flex flex-col lg:flex-row gap-8">
+    <!-- ================= LEFT CONTENT ================= -->
+    <div class="flex-1 max-w-full lg:max-w-[680px]">
+      <ng-container *ngIf="detailNews$ | async as news; else detailSkeleton">
+        <!-- TITLE -->
+        <h1 class="text-2xl sm:text-3xl lg:text-[36px] font-semibold leading-tight">
+          {{ news.title }}
+        </h1>
+
+        <!-- META -->
+        <div class="flex items-center gap-2 flex-wrap mt-3">
+          <span class="text-[#0090FF] text-xs sm:text-sm capitalize">
+            {{ news.category }}
+          </span>
+          <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+          <span class="text-gray-400 text-xs sm:text-sm">
+            {{ news.isoDate | date:'dd MMM yyyy' }}
+          </span>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="pt-4">
+          <img
+            [src]="news.image?.large || './assets/img/headline.png'"
+            [alt]="news.title"
+            class="w-full h-[200px] sm:h-[260px] md:h-[320px] lg:h-[340px]
+                   object-cover rounded-md"
+          />
+        </div>
+
+        <!-- CONTENT -->
+        <div class="pt-6 text-gray-800 leading-relaxed">
+          {{ news.contentSnippet }}
+        </div>
+
+ <!-- ================= KOMENTAR ================= -->
+<div class="pt-12">
+  <!-- HEADER -->
+  <div class="flex items-center gap-3 mb-6">
+    <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
+    <h2 class="text-lg font-semibold text-gray-900">
+      Komentar
+    </h2>
+  </div>
+
+  <!-- INPUT KOMENTAR -->
+  <div class="flex gap-4 mb-6">
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRU0a0iDtUPUzs0GFM6DSuovK0uOE4-Sc40Pg&s"
+      class="w-10 h-10 rounded-full object-cover"
+    />
+
+    <div class="flex-1">
+      <textarea
+        [(ngModel)]="commentText"
+        [maxlength]="maxLength"
+        rows="3"
+        placeholder="Apa yang ingin anda tanyakan?"
+        class="w-full border border-gray-300 rounded-lg p-3
+               text-sm focus:outline-none focus:ring-1
+               focus:ring-[#0090FF]"
+      ></textarea>
+
+      <div class="flex justify-between items-center mt-2">
+        <span class="text-xs text-gray-400">
+          {{ commentText.length }}/{{ maxLength }}
+        </span>
+
+        <button
+          (click)="submitComment()"
+          class="bg-[#0090FF] text-white text-sm
+                 px-4 py-1.5 rounded hover:bg-blue-600"
+        >
+          Kirim
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST KOMENTAR -->
+  <div class="space-y-6">
+    <div *ngFor="let c of comments" class="flex gap-4">
+      <img
+        [src]="c.avatar"
+        class="w-10 h-10 rounded-full object-cover"
+      />
+
+      <div class="flex-1">
+        <div class="flex items-center gap-2 text-sm">
+          <span class="font-semibold text-gray-900">
+            {{ c.name }}
+          </span>
+          <span class="text-gray-400 text-xs">
+            • {{ c.date }}
+          </span>
+        </div>
+
+        <p class="text-sm text-gray-800 mt-1">
+          {{ c.message }}
+        </p>
+
+        <button
+          class="text-xs text-[#0090FF] mt-1 hover:underline"
+        >
+          Balas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGINATION (UI ONLY) -->
+  <div
+    class="flex items-center justify-between mt-8
+           text-sm text-gray-500"
+  >
+    <span>Item per page 5 • of 200</span>
+
+    <div class="flex gap-2">
+      <button class="px-2 hover:text-[#0090FF]">‹</button>
+      <button class="px-2 text-[#0090FF] font-semibold">1</button>
+      <button class="px-2 hover:text-[#0090FF]">2</button>
+      <button class="px-2 hover:text-[#0090FF]">›</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="pt-10" *ngIf="relatedNews$ | async as related">
+  <!-- HEADER -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
+      <h2 class="text-lg font-semibold text-gray-900">
+        Berita Terkait
+      </h2>
+    </div>
+
+    <a
+      class="text-sm text-[#0090FF] hover:underline cursor-pointer"
+    >
+      Lihat Semua
+    </a>
+  </div>
+
+  <!-- LIST -->
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+  >
+    <div
+      *ngFor="let item of related"
+      class="group cursor-pointer relative"
+    >
+    <a class="bg-red absolute w-full h-[160px] z-500" [routerLink]="['/',item.category ,item.slug]"></a>
+      <!-- IMAGE -->
+      <div class="overflow-hidden rounded-lg mb-3 ">
+        <img
+          [src]="item.image.large"
+          [alt]="item.title"
+          class="w-full h-[160px] object-cover
+                 transition-transform duration-300
+                 group-hover:scale-105"
+          onerror="this.src='./assets/img/headline.png'"
+        />
+      </div>
+
+      <!-- TITLE -->
+      <p
+        class="text-sm font-semibold text-gray-900
+               line-clamp-3 mb-2"
+      >
+        {{ item.title }}
+      </p>
+
+      <!-- META -->
+      <div class="flex items-center gap-2 text-xs">
+        <span class="text-[#0090FF] capitalize">
+          {{ item.category }}
+        </span>
+        <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+        <span class="text-gray-400">
+          {{ item.isoDate | date:'dd MMM yyyy' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </ng-container>
+
+      <!-- DETAIL SKELETON -->
+      <ng-template #detailSkeleton>
+        <div class="animate-pulse space-y-4">
+          <div class="h-8 bg-gray-200 rounded w-3/4"></div>
+          <div class="h-4 bg-gray-200 rounded w-1/3"></div>
+          <div class="h-[300px] bg-gray-200 rounded"></div>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- ================= RIGHT SIDEBAR ================= -->
+    <aside class="w-full lg:w-[320px] lg:sticky lg:top-[120px]">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-1 h-6 bg-[#0090FF] rounded"></div>
+        <h2 class="text-base sm:text-lg font-semibold text-gray-900">
+          Berita Terpopuler
+        </h2>
+      </div>
+
+      <!-- TERPOPULER LIST -->
+      <ng-container *ngIf="topNews$ | async as newsList; else popularSkeleton">
+        <div *ngIf="newsList.length > 0; else popularSkeleton" class="space-y-6">
+          <div *ngFor="let item of newsList; let i = index" class="relative">
+            <div class="flex gap-3">
+              <!-- NUMBER -->
+              <div
+                class="text-white bg-[#1F2B39] absolute -top-2 -left-2
+                       rounded-full w-8 h-8 flex justify-center items-center
+                       text-sm z-10"
+              >
+                {{ i + 1 }}
+              </div>
+                  <a class="bg-red absolute w-full h-full z-500" [routerLink]="['/',item.category ,item.slug]"></a>
+              <!-- IMAGE -->
+              <img
+                [src]="item.image.small"
+                [alt]="item.title"
+                class="rounded-md w-20 h-20 object-cover flex-shrink-0"
+                onerror="this.src='./assets/img/headline.png'"
+              />
+
+              <!-- CONTENT -->
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-bold text-gray-900 line-clamp-3 mb-2">
+                  {{ item.title }}
+                </p>
+
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-[#0090FF] text-xs capitalize">
+                    {{ item.category }}
+                  </span>
+                  <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                  <span class="text-gray-400 text-xs">
+                    {{ item.isoDate | date:'dd MMM yyyy' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 border-b border-gray-200"></div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- POPULAR SKELETON -->
+      <ng-template #popularSkeleton>
+        <div class="space-y-6 animate-pulse">
+          <div *ngFor="let i of [1,2,3]" class="flex gap-3">
+            <div class="w-20 h-20 bg-gray-200 rounded-md"></div>
+            <div class="flex-1 space-y-3">
+              <div class="h-4 bg-gray-200 rounded w-full"></div>
+              <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </aside>
+  </div>
+</div>
+

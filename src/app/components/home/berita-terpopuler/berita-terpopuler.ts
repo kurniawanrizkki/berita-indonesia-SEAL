@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NewsService, NewsItem } from '../../../service/news/news'; // Sesuaikan path
-import { NgIf, AsyncPipe, NgFor, UpperCasePipe, DatePipe } from '@angular/common';
+import { NgIf, AsyncPipe, NgFor, DatePipe } from '@angular/common';
 import { Observable, map, startWith } from 'rxjs';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-berita-terpopuler',
   standalone: true,
-  imports: [NgIf, AsyncPipe, NgFor, UpperCasePipe, DatePipe],
+  imports: [NgIf, AsyncPipe, NgFor, DatePipe, RouterLink],
   templateUrl: './berita-terpopuler.html',
   styleUrl: './berita-terpopuler.css',
 })
