@@ -1,9 +1,9 @@
 {
   "buildCommand": "ng build",
-  "outputDirectory": "dist/berita-indonesia-SEAL",
+  "outputDirectory": "dist/berita-indonesia-SEAL/browser",
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
