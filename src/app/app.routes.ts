@@ -6,4 +6,6 @@ export const routes: Routes = [
   { path: '', component: Home },
   { path: ':kategori', component: CategoryNews },
   { path: ':kategori/:title', component: DetailNews },
+  { path: 'api/**', redirectTo: '' },
+  { path: '**', redirectTo: '' },
 ];
